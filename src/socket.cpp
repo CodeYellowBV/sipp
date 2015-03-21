@@ -1346,6 +1346,13 @@ int socket_fd(bool use_ipv6, int transport)
     case T_TCP:
         socket_type = SOCK_STREAM;
         break;
+    case T_WSS:
+#ifndef _USE_OPENSSL
+        ERROR("You do not have TLS support enabled!\n");
+#endif
+    case T_WS:
+        socket_type = SOCK_STREAM;
+        break;
     }
 
     if ((fd = socket(use_ipv6 ? AF_INET6 : AF_INET, socket_type, protocol))== -1) {

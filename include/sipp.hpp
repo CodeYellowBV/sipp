@@ -114,10 +114,14 @@
 # define SIPP_VERSION               "unknown"
 #endif
 
-#define T_UDP                      0
-#define T_TCP                      1
-#define T_TLS                      2
-#define T_SCTP                     3
+typedef enum {
+    T_UDP = 0,
+    T_TCP,
+    T_TLS,
+    T_SCTP,
+    T_WS,
+    T_WSS
+} TransportType;
 
 #ifdef _USE_OPENSSL
 #define DEFAULT_TLS_CERT           ((char *)"cacert.pem")
@@ -125,7 +129,13 @@
 #define DEFAULT_TLS_CRL            ((char *)"")
 #endif
 
-#define TRANSPORT_TO_STRING(p)     ((p==T_TCP) ? "TCP" : ((p==T_TLS)? "TLS" : ((p==T_UDP)? "UDP" : "SCTP")))
+/* TODO(Lekensteyn): change into a function */
+#define TRANSPORT_TO_STRING(p)     ((p==T_TCP) ? "TCP" : \
+                                   ((p==T_TLS) ? "TLS" : \
+                                   ((p==T_UDP) ? "UDP" : \
+                                   ((p==T_SCTP) ? "SCTP" : \
+                                   ((p==T_WS) ? "WS" : \
+                                   ((p==T_WSS) ? "WSS" : "(unknown)"))))))
 
 #define SIPP_MAXFDS                65536
 #define SIPP_MAX_MSG_SIZE          65536

@@ -1406,6 +1406,20 @@ int main(int argc, char *argv[])
                     ERROR("To use a TLS transport you must compile SIPp with OpenSSL");
 #endif
                     break;
+                case 'w':
+                    transport = T_WS;
+                    break;
+                case 'W':
+#ifdef _USE_OPENSSL
+                    transport = T_WSS;
+                    if ( init_OpenSSL() != 1) {
+                        printf("OpenSSL Initialization problem\n");
+                        exit ( -1);
+                    }
+#else
+                    ERROR("To use a WSS transport you must compile SIPp with OpenSSL");
+#endif
+                    break;
                 case 'c':
                     if(strlen(comp_error)) {
                         ERROR("No " COMP_PLUGGIN " pluggin available:\n%s", comp_error);

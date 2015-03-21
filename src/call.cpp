@@ -3555,6 +3555,10 @@ call::T_ActionResult call::executeAction(char * msg, message *curmsg)
                 protocol = T_TLS;
             } else if (!strcmp(str_protocol, "sctp") || !strcmp(str_protocol, "SCTP")) {
                 protocol = T_SCTP;
+            } else if (!strcmp(str_protocol, "ws") || !strcmp(str_protocol, "WS")) {
+                protocol = T_WS;
+            } else if (!strcmp(str_protocol, "wss") || !strcmp(str_protocol, "WSS")) {
+                protocol = T_WSS;
             } else {
                 ERROR("Unknown transport for setdest: '%s'", str_protocol);
             }
@@ -3589,6 +3593,8 @@ call::T_ActionResult call::executeAction(char * msg, message *curmsg)
                 /* Nothing to do. */
             } else if (protocol == T_TLS) {
                 ERROR("Changing destinations is not supported for TLS.");
+            } else if (protocol == T_WS || protocol == T_WSS) {
+                ERROR("Changing destinations is not supported for WS(S).");
             } else if (protocol == T_TCP || protocol == T_SCTP) {
                 if (!multisocket) {
                     ERROR("Changing destinations for TCP or SCTP requires multisocket mode.");

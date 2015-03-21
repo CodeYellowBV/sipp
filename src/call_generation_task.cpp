@@ -164,6 +164,8 @@ bool CallGenerationTask::run()
             case T_TCP:
             case T_SCTP:
             case T_TLS:
+            case T_WS:
+            case T_WSS:
                 call_ptr->associate_socket(tcp_multiplex);
                 tcp_multiplex->ss_count++;
                 break;

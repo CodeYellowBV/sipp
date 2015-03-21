@@ -93,6 +93,7 @@ struct socketbuf {
 struct sipp_socket {
     int  ss_count; /* How many users are there of this socket? */
 
+    /* TODO(Lekensteyn): use TransportType from sipp.hpp */
     int ss_transport; /* T_TCP, T_UDP, or T_TLS. */
     bool ss_ipv6;
     bool ss_control; /* Is this a control socket? */
